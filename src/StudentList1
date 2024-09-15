@@ -1,0 +1,185 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package student1;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ *
+ * @author cuong
+ */
+public class StudentList {
+    private ArrayList<Student>studentList;
+    StudentList()
+    {
+        studentList=new ArrayList<>();
+    }
+    public void addStudent(Student student )
+    {
+        student.addStudent();
+        studentList.add(student);
+        
+    }
+    public void deleteStudentById(String id)
+    {
+       for(int i=0;i<studentList.size();i++)
+        {
+         
+             if(studentList.get(i).getId().equals(id))
+             {
+                 studentList.remove(i);
+             }
+            
+        }
+    }
+    public void findStudentByID(String id)
+    {
+         for(Student s:studentList)
+        {
+            if(s.getId().equals(id))
+            {
+               s.displayInfo();
+            }
+        }
+    }
+    public void displayAllStudents()
+    {
+         for(Student s:studentList)
+        {
+         
+               s.displayInfo();
+            
+        }
+    }
+    public float findmaxgpa()
+    {
+        float max=0;
+        for(int i=0;i<studentList.size();i++)
+        {
+         
+               if(max<studentList.get(i).getGpa())
+               {
+                   max=studentList.get(i).getGpa();
+               }
+            
+        }
+        return max;
+    }
+    public Student findTopStudent()
+    {
+        float max=findmaxgpa();
+        for(Student s:studentList)
+        {
+            if(s.getGpa()==max)
+            {
+                s.displayInfo();
+            }
+        }
+        return null;
+    }
+  public ArrayList<Student> findScholarshipStudents() {
+    ArrayList<Student> scholarshipStudents = new ArrayList<>();
+    for (Student s : studentList) {
+        if (s.isSchoolarship()) { 
+            scholarshipStudents.add(s);
+        }
+    }
+    return scholarshipStudents;
+}
+  public double  caculateTuiitionOfAllStudents()
+  {
+    double schoolship=0;
+      for(Student s:studentList)
+      {
+          if(s.isSchoolarship())
+          {
+             schoolship= s.caculateTuiition();
+   
+          }
+      }
+     return schoolship;
+  }
+
+   
+   public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        StudentList studentList = new StudentList();
+        
+        boolean exit = false;
+        
+        while (!exit) {
+            System.out.println("===== Menu =====");
+            System.out.println("1. Thêm sinh viên");
+            System.out.println("2. Xóa sinh viên theo ID");
+            System.out.println("3. Tìm sinh viên theo ID");
+            System.out.println("4. Hiển thị tất cả sinh viên");
+            System.out.println("5. Tìm sinh viên có GPA cao nhất");
+            System.out.println("6. Hiển thị sinh viên có học bổng");
+            System.out.println("7. Tính tổng học phí của tất cả sinh viên");
+            System.out.println("8. Thoát");
+            System.out.print("Chọn tùy chọn: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); 
+            
+            switch (choice) {
+                case 1:
+              
+                    Student newStudent = new Student();
+                    studentList.addStudent(newStudent);
+                    break;
+                case 2:
+               
+                    System.out.print("Nhập ID sinh viên cần xóa: ");
+                    String idToDelete = sc.nextLine();
+                    studentList.deleteStudentById(idToDelete);
+                    break;
+                case 3:
+                   
+                    System.out.print("Nhập ID sinh viên cần tìm: ");
+                    String idToFind = sc.nextLine();
+                    studentList.findStudentByID(idToFind);
+                    break;
+                case 4:
+                  
+                    studentList.displayAllStudents();
+                    break;
+                case 5:
+               
+                    System.out.println("Sinh viên có GPA cao nhất:");
+                    studentList.findTopStudent();
+                    break;
+                case 6:
+            
+                    ArrayList<Student> scholarshipStudents = studentList.findScholarshipStudents();
+                    if (scholarshipStudents.isEmpty()) {
+                        System.out.println("Không có sinh viên nào có học bổng.");
+                    } else {
+                        System.out.println("Danh sách sinh viên có học bổng:");
+                        for (Student s : scholarshipStudents) {
+                            s.displayInfo();
+                        }
+                    }
+                    break;
+                case 7:
+                
+                    double totalTuition = studentList.caculateTuiitionOfAllStudents();
+                    System.out.println("Tổng học phí của tất cả sinh viên: " + totalTuition);
+                    break;
+                case 8:
+                  
+                    exit = true;
+                    System.out.println("Chương trình kết thúc.");
+                    break;
+                default:
+                    System.out.println("Tùy chọn không hợp lệ. Vui lòng chọn lại.");
+                    break;
+            }
+        }
+    }
+}
+
+    
+
