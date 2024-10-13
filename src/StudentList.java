@@ -21,7 +21,7 @@ public class StudentList {
         System.out.println("Enter GPA: ");
         student.setGpa(sc.nextFloat());
         sc.nextLine();
-        System.out.println("Enter Major: ");
+        System.out.println("Enter Major:1212 ");
         student.setMajor(sc.nextLine());
         students.add(student);
 
